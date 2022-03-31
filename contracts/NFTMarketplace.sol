@@ -1,18 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
 
-// import "./node_modules/@nibbstack/erc721/src/contracts/tokens/nf-token.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "./MobiloitteCoin.sol";
 
 
 contract ColorNFT is Ownable
 {
-    // MobiloitteCoin MC;
-    // @notice The price to create new colorNFT
+    // The price to create new colorNFT
     uint256 public _mintingPrice;
 
-    // @notice The currency to create new colorNFT
+    // The currency to create new colorNFT
     MobiloitteCoin public _mintingCurrency;
 
     mapping(uint256 => bytes3) tokens;
@@ -64,8 +62,6 @@ contract ColorNFT is Ownable
     function buyToken(address _addr, uint256 tokenId) public {
 
         MobiloitteCoin mobiloittecoin = MobiloitteCoin(_addr);
-         // Take payment for this service
-        // _mintingCurrency.spend(msg.sender, _mintingPrice);
 
         uint256 tokenPrice = forSale[tokenId];
         require(tokenPrice != 0, "the token is not for sale");
@@ -77,6 +73,7 @@ contract ColorNFT is Ownable
             msg.sender != owners[tokenId],
             "the message sender is already the owner of the token"
         );
+
         // return mobiloittecoin.balanceOf(msg.sender);
         mobiloittecoin.approve(address(this), tokenPrice);
         mobiloittecoin.transferFrom(msg.sender, owners[tokenId], tokenPrice);
